@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -100,8 +101,54 @@ public void listarProductos(JTable tablaProductos)
               
               
           return null;}
+ 
+ public ArrayList ListarNombresClientes(){
+   
+            ArrayList keywords = new ArrayList<String>();
+             
+             
+            conectar cc = new conectar();
+            Connection cn = cc.conexion();
+           
+            try {
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery("SELECT razon_social FROM cliente");
+                int i=0;
+                while(rs.next()){
+                    keywords.add(rs.getString("razon_social"));
+                }
+            }     
+            catch( Exception e){
+                   System.out.println("error producido en void listarCliente"+e.toString());
+               }
+            
+            return keywords;
+         } 
+ 
+    public ArrayList ListarIDClientes(){
+   
+            ArrayList keywords = new ArrayList<String>();
+             
+             
+            conectar cc = new conectar();
+            Connection cn = cc.conexion();
+           
+            try {
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery("SELECT ID FROM cliente");
+                int i=0;
+                while(rs.next()){
+                    keywords.add(rs.getString("ID"));
+                }
+            }     
+            catch( Exception e){
+                   System.out.println("error producido en void listarCliente"+e.toString());
+               }
+            
+            return keywords;
+         } 
     
-    }
+ }
 
-    
+ 
 

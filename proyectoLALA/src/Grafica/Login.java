@@ -4,12 +4,17 @@
  * and open the template in the editor.
  */
 package Grafica;
-
+import Clases.AutoSuggestor;
 import Clases.Funcion;
 import Clases.Usuario;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import static java.lang.Math.min;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.Timer;
 
 /**
  *
@@ -20,14 +25,25 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */int seg;
-     int min;
-     int hora;
+       int min;
+       int hora;
+       Timer timer; ////////////////////////////////
+       int ClientKeyDelay=0; ArrayList keywords;////////////////
+       
     public Login() {
         initComponents();
-     
-        seg = 0;
+        
+        ClienteTextField.addKeyListener(new java.awt.event.KeyAdapter() {////////////////
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+               ClienteTextFieldKeyReleased(evt);
+            }
+        });
+        
+         seg = 0;
          min=0;
          hora=0;
+         keywords = new Funcion().ListarNombresClientes();  /////////////// 
     }
 
     /**
@@ -208,26 +224,6 @@ public class Login extends javax.swing.JFrame {
 
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar-buscar-ampliar-icono-6707-32.png"))); // NOI18N
 
-        jLayeredPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(UsuarioLabelMarketing, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(ClienteTextField, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(IniciarLLamadaBoton, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(cronometroLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(TerminarLlamadaBoton, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jButton7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jButton11, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
         jLayeredPane2.setLayout(jLayeredPane2Layout);
         jLayeredPane2Layout.setHorizontalGroup(
@@ -333,6 +329,25 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jButton11)))
                 .addGap(44, 44, 44))
         );
+        jLayeredPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(UsuarioLabelMarketing, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(ClienteTextField, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jPanel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(IniciarLLamadaBoton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(cronometroLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(TerminarLlamadaBoton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jButton7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jButton11, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -386,10 +401,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLayeredPane3.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane3.setLayer(jButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jLayeredPane3Layout = new javax.swing.GroupLayout(jLayeredPane3);
         jLayeredPane3.setLayout(jLayeredPane3Layout);
         jLayeredPane3Layout.setHorizontalGroup(
@@ -416,6 +427,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        jLayeredPane3.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane3.setLayer(jButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -465,11 +479,6 @@ public class Login extends javax.swing.JFrame {
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cuenta-icono-6432-32.png"))); // NOI18N
         jButton9.setText("Facturar");
 
-        jLayeredPane4.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jButton8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jButton9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
         jLayeredPane4.setLayout(jLayeredPane4Layout);
         jLayeredPane4Layout.setHorizontalGroup(
@@ -502,6 +511,10 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jButton9))
                 .addGap(22, 22, 22))
         );
+        jLayeredPane4.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(jButton8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(jButton9, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salir-de-mi-perfil-icono-3964-32.png"))); // NOI18N
         jButton10.setText("Salir");
@@ -578,13 +591,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(UsuTextField, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(contraseñaField, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
@@ -624,6 +630,12 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
+        jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(UsuTextField, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(contraseñaField, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -654,28 +666,49 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-Funcion fx= new Funcion();
-String usu= UsuTextField.getText();
-String cont= contraseñaField.getText();
- Usuario u= fx.BuscarUsuario(usu, cont);
- if(u!=null) // que exista el usuario en la BD
- {
-     // aplicacion =1 pertenece a telemarketing
-     if(u.getApp()==1){
-         UsuarioLabelMarketing.setText(u.getNombre()+"");
-  TeleFrame.setVisible(true);  
-TeleFrame.setSize(668, 631);
-TerminarLlamadaBoton.setEnabled(false);}
-     
-     // aplicacion ==2 pertenece a despacho
-     if(u.getApp()==2)
-     {
-     DespachoFrame.setVisible(true);
-     DespachoFrame.setSize(705, 600);
-     usuarioLabelDespacho.setText(u.getNombre()+"");
-     }
- }
+    Funcion fx= new Funcion();
+    String usu= UsuTextField.getText();
+    String cont= contraseñaField.getText();
+    Usuario u= fx.BuscarUsuario(usu, cont);
+    
+        if (contraseñaField.getText().equals("") && UsuTextField.getText().equals("")){
+                 return;
+        }
+        else if (contraseñaField.getText().equals("") && !UsuTextField.getText().equals("")){
+                 showMessageDialog(this, "especifique una contraseña");
+        }
+        else if (UsuTextField.getText().equals("") && !contraseñaField.getText().equals("")){
+                 showMessageDialog(this, "especifique un usuario");
+                 
+        }else if(u!=null){ // que exista el usuario en la BD
+        
+            // aplicacion =1 pertenece a telemarketing
+            if(u.getApp()==1){
+                UsuarioLabelMarketing.setText(u.getNombre()+"");
+                TeleFrame.setVisible(true);  
+                TeleFrame.setSize(668, 631);
+                TerminarLlamadaBoton.setEnabled(false);}
+
+            // aplicacion ==2 pertenece a despacho
+            if(u.getApp()==2)
+            {
+            DespachoFrame.setVisible(true);
+            DespachoFrame.setSize(705, 600);
+            usuarioLabelDespacho.setText(u.getNombre()+"");
+            }
+            
+            this.setVisible(false);
+            
+        } else // sino consiguio usuario reseta
+                {
+                 showMessageDialog(this, "Usuario o contraseña incorrecta");
+                 UsuTextField.setText("");
+                 contraseñaField.setText("");
+ 
+                }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -697,66 +730,106 @@ TerminarLlamadaBoton.setEnabled(false);}
       TerminarLlamadaBoton.setEnabled(true);
       IniciarLLamadaBoton.setEnabled(false);
       
-      Thread hilo = new Thread();
 
-try
-{
-while(true)
-{
-    
-if(seg==59)
-{ seg=0; min++; }
+      ActionListener actionListener = new ActionListener() {  ////////////////////////////////////
+        public void actionPerformed(ActionEvent actionEvent) {
+            
+             
+            if(seg==59) { seg=0; min++; }
 
-if(min==59) 
-{ min=0; hora++; }
-seg++;
-   
-cronometroLabel.setText(hora+":"+min+":"+seg);
- System.out.println(hora+":"+min+":"+seg);
-hilo.sleep(1000);
-}
-}// end try
-catch (java.lang.InterruptedException ie) { System.out.println(ie.getMessage()); }
+            if(min==59) { min=0; hora++; }
+            
+            seg++;
+           
+            cronometroLabel.setText(String.format("%02d", hora)+":"+String.format("%02d", min)+":"+String.format("%02d", seg));
+            System.out.println(hora+":"+min+":"+seg); 
+
+        }
+      };
+        timer = new Timer(1000, actionListener);
+        timer.start();
+      
+      
+             
+        
+
+       
     }//GEN-LAST:event_IniciarLLamadaBotonActionPerformed
 
     private void TerminarLlamadaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TerminarLlamadaBotonActionPerformed
       TerminarLlamadaBoton.setEnabled(false);
       IniciarLLamadaBoton.setEnabled(true);
+      timer.stop();//////////////////////////////
+      cronometroLabel.setText("00:00:00");//////////////////////
+      seg=min=hora=0;///////////////////////
+      
     }//GEN-LAST:event_TerminarLlamadaBotonActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    
+    private void ClienteTextFieldKeyReleased(java.awt.event.KeyEvent evt) {  //////////////////////////////
+     
+        if (ClienteTextField.getText().equals("")){
+            ClienteTextField.setText(null);
+        }
+            
+        if( (ClientKeyDelay%6)== 0 ){
+            ClienteTextField.setFocusTraversalKeysEnabled(false);
+            AutoSuggestor autoSuggestor =  new AutoSuggestor(ClienteTextField, TeleFrame, keywords, Color.WHITE.brighter(), Color.BLUE, Color.RED, 0.75f, 6);
+        }
+
+        ClientKeyDelay = (ClientKeyDelay+1)%10000;
+
+        
+    }
+    
     private void contraseñaFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contraseñaFieldKeyTyped
-contraseñaField.setEchoChar('*');   
- char c= evt.getKeyChar();
+        contraseñaField.setEchoChar('*');   
+        char c= evt.getKeyChar();
+        
         if(c== KeyEvent.VK_ENTER)
         {
-        try {
-            Funcion fx= new Funcion();
-            String usu= UsuTextField.getText();
-            String cont= contraseñaField.getText();
-             Usuario u= fx.BuscarUsuario(usu, cont);
-             if(u!=null) // que exista el usuario en la BD
-             {
-     // aplicacion =1 pertenece a telemarketing
-                if(u.getApp()==1){
-                    UsuarioLabelMarketing.setText(u.getNombre()+"");
-                    TeleFrame.setVisible(true);  
-                    TeleFrame.setSize(668, 631);
-                    TerminarLlamadaBoton.setEnabled(false);}
-     
-     // aplicacion ==2 pertenece a despacho
-                        if(u.getApp()==2)
-                         {
-                            DespachoFrame.setVisible(true);
-                            DespachoFrame.setSize(705, 600);
-                            usuarioLabelDespacho.setText(u.getNombre()+"");
-                            }
-             }
+              if (contraseñaField.getText().equals("") && UsuTextField.getText().equals("")){
+                 return;
+              }
+              else if (contraseñaField.getText().equals("") && !UsuTextField.getText().equals("")){
+                         showMessageDialog(this, "especifique una contraseña");
+              }
+              else if (UsuTextField.getText().equals("") && !contraseñaField.getText().equals("")){
+                         showMessageDialog(this, "especifique un usuario");          
+            }
+            else if (UsuTextField.getText().equals("")){
+                 showMessageDialog(this, "especifique un usuario");
+            }else try {
+                Funcion fx= new Funcion();
+                String usu= UsuTextField.getText();
+                String cont= contraseñaField.getText();
+                 Usuario u= fx.BuscarUsuario(usu, cont);
+                 if(u!=null) // que exista el usuario en la BD
+                 {
+         // aplicacion =1 pertenece a telemarketing
+                    if(u.getApp()==1){
+                        UsuarioLabelMarketing.setText(u.getNombre()+"");
+                        TeleFrame.setVisible(true);  
+                        TeleFrame.setSize(668, 631);
+                        TerminarLlamadaBoton.setEnabled(false);}
+
+         // aplicacion ==2 pertenece a despacho
+                            if(u.getApp()==2)
+                             {
+                                DespachoFrame.setVisible(true);
+                                DespachoFrame.setSize(705, 600);
+                                usuarioLabelDespacho.setText(u.getNombre()+"");
+                                }
+                            
+                            this.setVisible(false);
+            }
             else // sino consiguio usuario reseta
                 {
+                 showMessageDialog(this, "Usuario o contraseña incorrecta");
                  UsuTextField.setText("");
                  contraseñaField.setText("");
  
