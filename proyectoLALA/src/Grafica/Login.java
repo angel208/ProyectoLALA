@@ -13,8 +13,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.NO_OPTION;
+import static javax.swing.JOptionPane.YES_OPTION;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JTable;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,20 +36,49 @@ public class Login extends javax.swing.JFrame {
        
     public Login() {
         initComponents();
+        initComponents2();
         
-        ClienteTextField.addKeyListener(new java.awt.event.KeyAdapter() {////////////////
-            @Override
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-               ClienteTextFieldKeyReleased(evt);
-            }
-        });
         
          seg = 0;
          min=0;
          hora=0;
          keywords = new Funcion().ListarNombresClientes();  /////////////// 
     }
+    
+    private void initComponents2(){
+  
+        ClienteTextField.addKeyListener(new java.awt.event.KeyAdapter() {////////////////
+                @Override
+                public void keyReleased(java.awt.event.KeyEvent evt) {
+                   ClienteTextFieldKeyReleased(evt);
+                }
+            });    
 
+        FacturarBoton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    FacturarBotonActionPerformed(evt);
+                }
+            });
+        
+        VerOrdenBoton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    VerOrdenBotonActionPerformed(evt);
+                }
+            });
+        
+        xBoton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                   xBotonActionPerformed(evt);
+                }
+            });
+        
+        DetallesOrdenVolverBoton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                   DetallesOrdenVolverBotonActionPerformed(evt);
+                }
+            });
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,11 +124,25 @@ public class Login extends javax.swing.JFrame {
         jLayeredPane4 = new javax.swing.JLayeredPane();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        OrdenesTable = new javax.swing.JTable();
+        VerOrdenBoton = new javax.swing.JButton();
+        FacturarBoton = new javax.swing.JButton();
+        xBoton = new javax.swing.JButton();
         usuarioLabelDespacho = new javax.swing.JLabel();
+        DetallesOrdenFrame = new javax.swing.JFrame();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        DIDlabel = new javax.swing.JLabel();
+        DetallesOrdenVolverBoton = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        DetallesOrdenTable = new javax.swing.JTable();
+        DOperadoraLabel = new javax.swing.JLabel();
+        DHoraLabel = new javax.swing.JLabel();
+        DRifLabel = new javax.swing.JLabel();
+        DClienteLabel = new javax.swing.JLabel();
+        DDireccionLabel = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel1 = new javax.swing.JLabel();
@@ -107,7 +154,6 @@ public class Login extends javax.swing.JFrame {
 
         TeleFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         TeleFrame.setTitle("TELEMARKETING");
-        TeleFrame.setMaximumSize(new java.awt.Dimension(668, 631));
         TeleFrame.setMinimumSize(new java.awt.Dimension(668, 631));
         TeleFrame.setResizable(false);
 
@@ -460,7 +506,7 @@ public class Login extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel10.setText("Despacho");
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        OrdenesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -471,13 +517,13 @@ public class Login extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(OrdenesTable);
 
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ver-icono-5784-32.png"))); // NOI18N
-        jButton8.setText("Ver Orden");
+        VerOrdenBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ver-icono-5784-32.png"))); // NOI18N
+        VerOrdenBoton.setText("Ver Orden");
 
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cuenta-icono-6432-32.png"))); // NOI18N
-        jButton9.setText("Facturar");
+        FacturarBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cuenta-icono-6432-32.png"))); // NOI18N
+        FacturarBoton.setText("Facturar");
 
         javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
         jLayeredPane4.setLayout(jLayeredPane4Layout);
@@ -493,9 +539,9 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
             .addGroup(jLayeredPane4Layout.createSequentialGroup()
                 .addGap(130, 130, 130)
-                .addComponent(jButton8)
+                .addComponent(VerOrdenBoton)
                 .addGap(93, 93, 93)
-                .addComponent(jButton9)
+                .addComponent(FacturarBoton)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jLayeredPane4Layout.setVerticalGroup(
@@ -507,20 +553,20 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton8)
-                    .addComponent(jButton9))
+                    .addComponent(VerOrdenBoton)
+                    .addComponent(FacturarBoton))
                 .addGap(22, 22, 22))
         );
         jLayeredPane4.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane4.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jButton8, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane4.setLayer(jButton9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(VerOrdenBoton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(FacturarBoton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salir-de-mi-perfil-icono-3964-32.png"))); // NOI18N
-        jButton10.setText("Salir");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        xBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salir-de-mi-perfil-icono-3964-32.png"))); // NOI18N
+        xBoton.setText("Salir");
+        xBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                xBotonActionPerformed(evt);
             }
         });
 
@@ -534,7 +580,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLayeredPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton10)
+                    .addComponent(xBoton)
                     .addComponent(usuarioLabelDespacho))
                 .addGap(0, 21, Short.MAX_VALUE))
         );
@@ -545,7 +591,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jButton10)
+                .addComponent(xBoton)
                 .addGap(18, 18, 18)
                 .addComponent(usuarioLabelDespacho)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -561,6 +607,127 @@ public class Login extends javax.swing.JFrame {
             DespachoFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Orden de venta:");
+
+        DIDlabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        DIDlabel.setForeground(new java.awt.Color(0, 0, 0));
+        DIDlabel.setText("31");
+        DIDlabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        DetallesOrdenVolverBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver-flecha-azul-a-la-izquierda-icono-8990-32.png"))); // NOI18N
+        DetallesOrdenVolverBoton.setText("Volver");
+
+        DetallesOrdenTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane6.setViewportView(DetallesOrdenTable);
+
+        DOperadoraLabel.setForeground(new java.awt.Color(0, 0, 0));
+        DOperadoraLabel.setText("Operadora: Melissa Curtiss");
+
+        DHoraLabel.setForeground(new java.awt.Color(0, 0, 0));
+        DHoraLabel.setText("Fecha y Hora: 02/02/1999 02:25:22");
+
+        DRifLabel.setForeground(new java.awt.Color(0, 0, 0));
+        DRifLabel.setText("RIF: G-20004076-9 ");
+
+        DClienteLabel.setForeground(new java.awt.Color(0, 0, 0));
+        DClienteLabel.setText("Cliente:  AV. 3 CON CALLE 5 INSTITUTO CLINICO UNARE NRO S/N URB UNARE II PUERTO ORDAZ asda asdas dasd");
+
+        DDireccionLabel.setForeground(new java.awt.Color(0, 0, 0));
+        DDireccionLabel.setText("Direccion: AV. 3 CON CALLE 5 INSTITUTO CLINICO UNARE NRO S/N URB UNARE II PUERTO ORDAZ asda asdas dasd");
+        DDireccionLabel.setFocusCycleRoot(true);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(333, 333, 333)
+                        .addComponent(DetallesOrdenVolverBoton))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(DRifLabel)
+                                    .addComponent(DOperadoraLabel)
+                                    .addComponent(DClienteLabel)
+                                    .addComponent(DDireccionLabel)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(DIDlabel)
+                                        .addGap(65, 65, 65))))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(144, 144, 144)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(69, 69, 69)
+                        .addComponent(DHoraLabel)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(DIDlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DOperadoraLabel)
+                    .addComponent(DHoraLabel))
+                .addGap(15, 15, 15)
+                .addComponent(DRifLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(DClienteLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(DDireccionLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(DetallesOrdenVolverBoton)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout DetallesOrdenFrameLayout = new javax.swing.GroupLayout(DetallesOrdenFrame.getContentPane());
+        DetallesOrdenFrame.getContentPane().setLayout(DetallesOrdenFrameLayout);
+        DetallesOrdenFrameLayout.setHorizontalGroup(
+            DetallesOrdenFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        DetallesOrdenFrameLayout.setVerticalGroup(
+            DetallesOrdenFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(jTable4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
@@ -690,7 +857,9 @@ public class Login extends javax.swing.JFrame {
                 UsuarioLabelMarketing.setText(u.getNombre()+"");
                 TeleFrame.setVisible(true);  
                 TeleFrame.setSize(668, 631);
-                TerminarLlamadaBoton.setEnabled(false);}
+                TerminarLlamadaBoton.setEnabled(false);
+                new Funcion().LLenarListaProductos(jTable1,jTable2);
+            }
 
             // aplicacion ==2 pertenece a despacho
             if(u.getApp()==2)
@@ -698,6 +867,7 @@ public class Login extends javax.swing.JFrame {
             DespachoFrame.setVisible(true);
             DespachoFrame.setSize(705, 600);
             usuarioLabelDespacho.setText(u.getNombre()+"");
+            new Funcion().listarOrdenes(OrdenesTable);
             }
             
             this.setVisible(false);
@@ -706,24 +876,29 @@ public class Login extends javax.swing.JFrame {
                 {
                  showMessageDialog(this, "Usuario o contraseña incorrecta");
                  UsuTextField.setText("");
-                 contraseñaField.setText("");
+                 contraseñaField.setText(""); 
  
                 }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
       //***********************  LLAMADA EXITOSA*************************
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-            JOptionPane.showConfirmDialog (null, "La llamada fue exitosa?","REGISTRO LLAMADA", dialogButton);
-            if(dialogButton == JOptionPane.YES_OPTION) {
-               // System.exit(0);
+        
+            int dialogButton = JOptionPane.YES_NO_OPTION;  
+            int response;
+            response = JOptionPane.showConfirmDialog (null, "Desea Generar la orden de venta?","Generar orden de venta", dialogButton);
+            
+            
+            if( response == YES_OPTION) {
+               System.exit(0);
                 //aqui se pondria para guardar el registro de la llamada exitosa
-            if(dialogButton == JOptionPane.NO_OPTION) {
-                  remove(dialogButton);
-                }
-              }
-        
-        
+            }else if( response == NO_OPTION) {
+                  
+            }
+              
+            
+      
+              
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void IniciarLLamadaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarLLamadaBotonActionPerformed
@@ -769,7 +944,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    
+     
     private void ClienteTextFieldKeyReleased(java.awt.event.KeyEvent evt) {  //////////////////////////////
      
         if (ClienteTextField.getText().equals("")){
@@ -823,6 +998,7 @@ public class Login extends javax.swing.JFrame {
                                 DespachoFrame.setVisible(true);
                                 DespachoFrame.setSize(705, 600);
                                 usuarioLabelDespacho.setText(u.getNombre()+"");
+                                new Funcion().listarOrdenes(OrdenesTable);
                                 }
                             
                             this.setVisible(false);
@@ -841,28 +1017,75 @@ catch(java.lang.NullPointerException e)
         }
    }
            
-
+    
+        
     }//GEN-LAST:event_contraseñaFieldKeyTyped
 
+private void FacturarBotonActionPerformed(java.awt.event.ActionEvent evt) { 
+        
+       int response;
+       response = JOptionPane.showConfirmDialog(null, "Should i delete all files?");
+       
+       if( response == YES_OPTION){
+           
+            int row = OrdenesTable.getSelectedRow();
+            new Funcion().MarcarComoFacturado(OrdenesTable.getModel().getValueAt(row, 0).toString());
+            ((DefaultTableModel)OrdenesTable.getModel()).removeRow(row);
+       }
+    }
+    
+private void VerOrdenBotonActionPerformed(java.awt.event.ActionEvent evt) { 
+        int row = OrdenesTable.getSelectedRow();
+        
+        if(row == -1){
+            
+            showMessageDialog(this.DespachoFrame, "No hay ninguna orden seleccionada");
+            
+        }
+        else{
+            
+            String idOrden = (OrdenesTable.getModel().getValueAt(row, 0).toString());
+            
+            DIDlabel.setText(idOrden);
+            
+            DClienteLabel.setText(OrdenesTable.getModel().getValueAt(row, 1).toString());
+            DRifLabel.setText(OrdenesTable.getModel().getValueAt(row, 2).toString());
+            DDireccionLabel.setText(OrdenesTable.getModel().getValueAt(row, 3).toString());
+            DHoraLabel.setText(OrdenesTable.getModel().getValueAt(row, 4).toString());
+            DOperadoraLabel.setText(OrdenesTable.getModel().getValueAt(row, 5).toString());
+
+            DetallesOrdenFrame.setVisible(true);  
+            DetallesOrdenFrame.setSize(860, 585);
+            
+            new Funcion().listarProductosOV(DetallesOrdenTable, idOrden );
+            
+        }
+    }
+     
+    private void  DetallesOrdenVolverBotonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        DetallesOrdenFrame.setVisible(false); 
+    }  
+    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-clienteFrame.setVisible(false); 
-TeleFrame.setVisible(true);// TODO add your handling code here:
+        clienteFrame.setVisible(false); 
+        TeleFrame.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        clienteFrame.setVisible(true); 
        clienteFrame.setSize(555, 472);
-TeleFrame.setVisible(false);
+       TeleFrame.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       System.exit(0);  
+        System.exit(0);
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void xBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xBotonActionPerformed
        System.exit(0);  
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_xBotonActionPerformed
 
+   
     /**
      * @param args the command line arguments
      */
@@ -900,17 +1123,28 @@ TeleFrame.setVisible(false);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ClienteTextField;
+    private javax.swing.JLabel DClienteLabel;
+    private javax.swing.JLabel DDireccionLabel;
+    private javax.swing.JLabel DHoraLabel;
+    private javax.swing.JLabel DIDlabel;
+    private javax.swing.JLabel DOperadoraLabel;
+    private javax.swing.JLabel DRifLabel;
     private javax.swing.JFrame DespachoFrame;
+    private javax.swing.JFrame DetallesOrdenFrame;
+    private javax.swing.JTable DetallesOrdenTable;
+    private javax.swing.JButton DetallesOrdenVolverBoton;
+    private javax.swing.JButton FacturarBoton;
     private javax.swing.JButton IniciarLLamadaBoton;
+    private javax.swing.JTable OrdenesTable;
     private javax.swing.JFrame TeleFrame;
     private javax.swing.JButton TerminarLlamadaBoton;
     private javax.swing.JTextField UsuTextField;
     private javax.swing.JLabel UsuarioLabelMarketing;
+    private javax.swing.JButton VerOrdenBoton;
     private javax.swing.JFrame clienteFrame;
     private java.awt.TextField contraseñaField;
     private javax.swing.JLabel cronometroLabel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -918,10 +1152,9 @@ TeleFrame.setVisible(false);
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -939,14 +1172,20 @@ TeleFrame.setVisible(false);
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JLabel usuarioLabelDespacho;
+    private javax.swing.JButton xBoton;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.JFrame DetallesOrdenesFrame;
+
 }
