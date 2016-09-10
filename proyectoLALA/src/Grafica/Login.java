@@ -6,12 +6,15 @@
 package Grafica;
 import Clases.AutoSuggestor;
 import Clases.Funcion;
+import Clases.Reserva;
 import Clases.Usuario;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.NO_OPTION;
 import static javax.swing.JOptionPane.YES_OPTION;
@@ -31,8 +34,10 @@ public class Login extends javax.swing.JFrame {
      */int seg;
        int min;
        int hora;
+       Calendar TiempoLlamada;
        Timer timer; ////////////////////////////////
        int ClientKeyDelay=0; ArrayList keywords;////////////////
+       Usuario u;
        
     public Login() {
         initComponents();
@@ -839,7 +844,7 @@ public class Login extends javax.swing.JFrame {
     Funcion fx= new Funcion();
     String usu= UsuTextField.getText();
     String cont= contraseñaField.getText();
-    Usuario u= fx.BuscarUsuario(usu, cont);
+    u= fx.BuscarUsuario(usu, cont);
     
         if (contraseñaField.getText().equals("") && UsuTextField.getText().equals("")){
                  return;
@@ -890,21 +895,22 @@ public class Login extends javax.swing.JFrame {
             
             
             if( response == YES_OPTION) {
-               System.exit(0);
-                //aqui se pondria para guardar el registro de la llamada exitosa
-            }else if( response == NO_OPTION) {
-                  
-            }
-              
+                //aqui se hara el proceso de despacho
+                
             
-      
-              
+                
+                int id_orden = new Funcion().CrearOrdenVenta( u.getID() , "J-00021244-9", "PASEO ORINOCO, 134 APARTADO 109");
+                new Funcion().Despachar(id_orden,jTable2);
+                new Funcion().InsertarDemanda(jTable1);
+                
+            }
+          
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void IniciarLLamadaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarLLamadaBotonActionPerformed
       TerminarLlamadaBoton.setEnabled(true);
       IniciarLLamadaBoton.setEnabled(false);
-      
+      TiempoLlamada = Calendar.getInstance();
 
       ActionListener actionListener = new ActionListener() {  ////////////////////////////////////
         public void actionPerformed(ActionEvent actionEvent) {
@@ -1024,7 +1030,7 @@ catch(java.lang.NullPointerException e)
 private void FacturarBotonActionPerformed(java.awt.event.ActionEvent evt) { 
         
        int response;
-       response = JOptionPane.showConfirmDialog(null, "Should i delete all files?");
+       response = JOptionPane.showConfirmDialog(null, "Marcar orden como facturada?");
        
        if( response == YES_OPTION){
            
