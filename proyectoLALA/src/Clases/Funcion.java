@@ -83,22 +83,27 @@ public void listarCliente(JTable tablaClientes)
 public void listarProductosOV(JTable DetallesOrdenTable, String idOrden ){
      
          DefaultTableModel model;
-         String [] titulos={ "Codigo del Producto" , "Codigo Lote" , "Cantidad" };
+         String [] titulos={ "lote" , "Codigo Producto" , "Cantidad" };
          String [] registros = new String [3];
      
-            model= new DefaultTableModel(null,titulos);
+            model= new DefaultTableModel(null,titulos) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
             conectar cc = new conectar();
             Connection cn = cc.conexion();
             
             try {
                 Statement st = cn.createStatement();
                 
-                ResultSet rs = st.executeQuery("SELECT codigo_producto, lote_producto, cantidad FROM orden_x_lote WHERE Orden_id = "+idOrden);
+                ResultSet rs = st.executeQuery("SELECT correlativo_lote, codigo_producto, cantidad FROM orden_x_lote WHERE Orden_id = "+idOrden);
                 
                 while(rs.next()){
                       
-                        registros[0]=rs.getString("codigo_producto");                    
-                        registros[1]=rs.getString("lote_producto");
+                        registros[0]=rs.getString("correlativo_lote");                    
+                        registros[1]=rs.getString("codigo_producto");
                         registros[2]=rs.getString("cantidad");
 
                         model.addRow(registros);                          
@@ -121,7 +126,13 @@ public void listarOrdenes(JTable tablaOrdenes)
      String [] titulos={"ID", "Cliente","Rif","Direccion","Fecha y hora", "Operadora"};
      String [] registros = new String [6];
      
-            model= new DefaultTableModel(null,titulos);
+            model= new DefaultTableModel(null,titulos) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            
             conectar cc = new conectar();
             Connection cn = cc.conexion();
             
@@ -248,16 +259,19 @@ public void listarOrdenes(JTable tablaOrdenes)
                 
                 //restar de la reserva       
                 st.executeUpdate("UPDATE productos_reservados "
-                               + "INNER JOIN orden_x_lote ON ( Orden_x_lote.codigo_Producto = productos_reservados.codigo_producto AND Orden_x_lote.Orden_id = "+ id + " ) "
-                               + "SET productos_reservados.cantidad_reservada = productos_reservados.cantidad_reservada - orden_x_lote.cantidad "
+                               + "INNER JOIN ( SELECT codigo_producto, SUM(cantidad) as cantidad "
+                                            + "FROM orden_x_lote as OL "
+                                            + "WHERE OL.orden_id = " +id+" "
+                                            + "GROUP BY codigo_producto "
+                               + ") AS Result ON ( Result.codigo_producto = productos_reservados.codigo_producto ) "
+                               + "SET productos_reservados.cantidad_reservada = productos_reservados.cantidad_reservada - Result.cantidad "
 
                 );        
       
                 //restar de la tabla de lotes          
                 st.executeUpdate("UPDATE lote_producto "
-                               + "INNER JOIN orden_x_lote ON ( Orden_x_lote.codigo_Producto =  lote_producto.codigo_producto "
-                               + "AND Orden_x_lote.Orden_id = "+ id + " "
-                               + "AND Orden_x_lote.lote_producto =  lote_producto.lote_producto ) "
+                               + "INNER JOIN orden_x_lote ON ( Orden_x_lote.correlativo_lote =  lote_producto.correlativo "
+                               + "AND Orden_x_lote.Orden_id = "+ id + " )"
                                + "SET  lote_producto.cantidad_x_lote =  lote_producto.cantidad_x_lote - orden_x_lote.cantidad "
 
                 ); 
@@ -405,12 +419,13 @@ public void InsertarLotexOrden(int IDorden, String Producto, Reserva R, int cant
             try {
                        
                 PreparedStatement MSQL_statement = cn.prepareStatement(
-                        "INSERT INTO orden_x_lote ( Orden_id , codigo_producto ,lote_producto , cantidad ) VALUES (?,?,?,?)");
-
-                MSQL_statement.setInt(1, IDorden);
-                MSQL_statement.setString(2, Producto );
-                MSQL_statement.setString(3, R.getLote());
-                MSQL_statement.setInt(4, cantidad);
+                        "INSERT INTO orden_x_lote ( correlativo_lote, Orden_id , codigo_producto ,lote_producto , cantidad ) VALUES (?,?,?,?,?)");
+                
+                MSQL_statement.setString(1, R.getCorrelativo());
+                MSQL_statement.setInt(2, IDorden);
+                MSQL_statement.setString(3, Producto );
+                MSQL_statement.setString(4, R.getLote());
+                MSQL_statement.setInt(5, cantidad);
 
                         
                 System.out.println(MSQL_statement);
@@ -441,37 +456,47 @@ public Reserva[] ObtenerListaDeLotes(String IDproducto ) {
                         + "WHERE OV.despachado = 0 "
                         + "AND LP.codigo_producto = "+IDproducto+" "
                         + "AND OL.orden_id = OV.id " 
-                        + "AND OL.codigo_producto = LP.codigo_producto " 
-                        + "AND OL.lote_producto = LP.lote_producto "
+                        + "AND OL.correlativo_lote = LP.correlativo " 
                 );
                 
                 if (!rs.next()){
                     
                        rs = st.executeQuery(                        
-                          "SELECT lote_producto as codigo_lote, fecha_ingreso, cantidad_x_lote  as cantidad  "
+                          "SELECT correlativo as codigo_lote, fecha_ingreso, cantidad_x_lote as cantidad, lote_producto as lote  "
                         + "FROM lote_producto as LP "
                         + "WHERE LP.codigo_producto = "+IDproducto+" "
                         ); 
                     
                 }else{                
-                        rs = st.executeQuery(
+                    
+                    rs = st.executeQuery(
+                            
+                            
 
-                                  "SELECT LP.lote_producto as codigo_lote, LP.fecha_ingreso, (LP.cantidad_x_lote - SUM(OL.cantidad) ) as cantidad "
+                                  "SELECT LP.correlativo as codigo_lote, LP.lote_producto as lote, LP.fecha_ingreso, (LP.cantidad_x_lote - SUM(OL.cantidad) ) as cantidad "
                                 + "FROM lote_producto as LP, orden_x_lote as OL, orden_venta as OV  "
                                 + "WHERE OV.despachado = 0 "
                                 + "AND LP.codigo_producto = "+IDproducto+" "
-                                + "AND OL.orden_id = OV.id " 
-                                + "AND OL.codigo_producto = LP.codigo_producto " 
-                                + "AND OL.lote_producto = LP.lote_producto "
-                                + "GROUP BY codigo_lote, fecha_ingreso" 
-
-                        );
+                                + "AND OL.orden_id = OV.id "
+                                + "AND OL.correlativo_lote = LP.correlativo "
+                                + "GROUP BY codigo_lote, fecha_ingreso, LP.lote_producto "
+                                          
+                                + "UNION ALL "
+                                          
+                                + "SELECT LP.correlativo as codigo_lote, LP.lote_producto as lote, LP.fecha_ingreso, LP.cantidad_x_lote as cantidad "
+                                + "FROM lote_producto as LP LEFT JOIN orden_x_lote AS OL ON OL.correlativo_lote = LP.correlativo "
+                                + "WHERE  OL.correlativo_lote IS NULL "
+                                + "AND LP.codigo_producto = " +IDproducto+" "
+                    );
+                    
+                    
+                    
                 }                    
                
                 
                 while(rs.next()){
                    
-                        Lista.add( new Reserva( rs.getInt("cantidad"), rs.getString("codigo_lote"), rs.getString("fecha_ingreso") ) );
+                        Lista.add( new Reserva( rs.getString("codigo_lote"), rs.getInt("cantidad"), rs.getString("lote"), rs.getString("fecha_ingreso") ) );
    
                 }
                 
@@ -482,7 +507,7 @@ public Reserva[] ObtenerListaDeLotes(String IDproducto ) {
                 Arrays.sort(ListaProductos);    
                
 		for(Reserva temp: ListaProductos){
-		   System.out.println("lote: " + temp.getLote() + " - " + temp.getFecha() + " - cantidad: "+temp.getCantidad());
+		   System.out.println("lote: " + temp.getCorrelativo() + " - " + temp.getFecha() + " - cantidad: "+temp.getCantidad());
 		}
                 
                 return ListaProductos;
@@ -532,16 +557,18 @@ public void Despachar(int IDorden, JTable tabla){
 
                 for(Reserva temp: R){
 
-                          System.out.println("lote: " + temp.getLote() + " - " + temp.getFecha() + " - cantidad: "+temp.getCantidad());
+                          System.out.println("lote: " + temp.getCorrelativo() + " - " + temp.getFecha() + " - cantidad: "+temp.getCantidad());
                 }
 
                 while( cant > 0){
 
                     if( R[i].getCantidad() <= cant ){
-
-                        cant = cant - R[i].getCantidad();
-                        InsertarLotexOrden( IDorden, Producto,  R[i], R[i].getCantidad() );
-                        ReservarProducto(Producto, R[i].getCantidad());
+                        
+                        if (R[i].getCantidad() != 0){
+                            cant = cant - R[i].getCantidad();
+                            InsertarLotexOrden( IDorden, Producto,  R[i], R[i].getCantidad() );
+                            ReservarProducto(Producto, R[i].getCantidad());
+                        }
 
                     }
                     else{
@@ -608,16 +635,16 @@ public void LLenarListaProductos(JTable tabla1, JTable tabla2)
      
      model= new DefaultTableModel(null,titulos);
    
-                        registros[0]="4048846001672";                    
-                        registros[1]="123";
+                        registros[0]="7594001101451";                    
+                        registros[1]="100";
                         model.addRow(registros);
-                        registros[0]="7590019001851";                    
-                        registros[1]="342";
+                        registros[0]="7594001101017";                    
+                        registros[1]="200";
                         model.addRow(registros);
-                        registros[0]="7591044913607";                    
-                        registros[1]="43";
+                        registros[0]="7594001101048";                    
+                        registros[1]="50";
                         model.addRow(registros);
-                        registros[0]="0010206099";                    
+                        registros[0]="7592637006775";                    
                         registros[1]="1000";
                         model.addRow(registros);
                         tabla1.setModel(model);
@@ -628,14 +655,14 @@ public void LLenarListaProductos(JTable tabla1, JTable tabla2)
      
      model2= new DefaultTableModel(null,titulos2);
    
-                        registros2[0]="4048846001672";                    
+                        registros2[0]="7594001101451";                    
+                        registros2[1]="1";
+                        model2.addRow(registros2);
+                        registros2[0]="7594001101017";                    
                         registros2[1]="2";
                         model2.addRow(registros2);
-                        registros2[0]="7590019001851";                    
-                        registros2[1]="4";
-                        model2.addRow(registros2);
-                        registros2[0]="7591044913607";                    
-                        registros2[1]="6";
+                        registros2[0]="7594001101048";                    
+                        registros2[1]="1";
                         model2.addRow(registros2);
                         tabla2.setModel(model2);            
     }

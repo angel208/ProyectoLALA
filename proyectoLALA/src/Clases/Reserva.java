@@ -20,11 +20,13 @@ public class Reserva implements Comparable<Reserva> {
     public int cantidad;
     public String lote;
     public String fecha;
+    public String correlativo;
 
-    public Reserva(int cantidad, String lote, String fecha) {
+    public Reserva(String correlativo, int cantidad, String lote, String fecha) {
         this.cantidad = cantidad;
         this.lote = lote;
         this.fecha = fecha;
+        this.correlativo = correlativo;
     }
     
     public int getCantidad() {
@@ -33,6 +35,10 @@ public class Reserva implements Comparable<Reserva> {
 
     public String getLote() {
         return lote;
+    }
+    
+    public String getCorrelativo() {
+        return correlativo;
     }
 
     public String getFecha() {
