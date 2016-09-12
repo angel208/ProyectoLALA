@@ -602,12 +602,15 @@ public int CrearOrdenVenta( int usr , String rif, String direccion){
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                 
                 Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.MINUTE, 30);
                 HoraActual = sdf.format(cal.getTime());
-                 
+                java.sql.Timestamp HA = new java.sql.Timestamp(sdf.parse(HoraActual).getTime());
+                
+                
                 PreparedStatement MSQL_statement = cn.prepareStatement(
                         "INSERT INTO orden_venta ( hora , operadora_id , cliente_rif, cliente_direccion, despachado ) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 
-                MSQL_statement.setDate(1, new java.sql.Date(sdf.parse(HoraActual).getTime()) );
+                MSQL_statement.setTimestamp(1, HA );
                 MSQL_statement.setInt(2, usr);
                 MSQL_statement.setString(3, rif);
                 MSQL_statement.setString(4, direccion);

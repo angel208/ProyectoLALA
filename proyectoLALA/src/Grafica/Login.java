@@ -6,20 +6,16 @@
 package Grafica;
 import Clases.AutoSuggestor;
 import Clases.Funcion;
-import Clases.Reserva;
 import Clases.Usuario;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.NO_OPTION;
 import static javax.swing.JOptionPane.YES_OPTION;
 import static javax.swing.JOptionPane.showMessageDialog;
-import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
@@ -112,11 +108,14 @@ public class Login extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         IniciarLLamadaBoton = new javax.swing.JButton();
         cronometroLabel = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
         TerminarLlamadaBoton = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
+        EliminarProductoBoton2 = new javax.swing.JButton();
+        EliminarProductoBoton1 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        ReinicioBoton = new javax.swing.JButton();
         clienteFrame = new javax.swing.JFrame();
         jPanel4 = new javax.swing.JPanel();
         jLayeredPane3 = new javax.swing.JLayeredPane();
@@ -242,14 +241,6 @@ public class Login extends javax.swing.JFrame {
         cronometroLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         cronometroLabel.setText("00:00:00");
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/enviar-correo-icono-6997-32.png"))); // NOI18N
-        jButton5.setText("Despachar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         TerminarLlamadaBoton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar-el-dialogo-icono-5225-32.png"))); // NOI18N
         TerminarLlamadaBoton.setText(" LLAmada");
         TerminarLlamadaBoton.addActionListener(new java.awt.event.ActionListener() {
@@ -275,6 +266,38 @@ public class Login extends javax.swing.JFrame {
 
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar-buscar-ampliar-icono-6707-32.png"))); // NOI18N
 
+        EliminarProductoBoton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\angel\\Documents\\NetBeansProjects\\proyectoLALA\\src\\Imagenes\\close15.png")); // NOI18N
+        EliminarProductoBoton2.setText("Eliminar producto");
+        EliminarProductoBoton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarProductoBoton2ActionPerformed(evt);
+            }
+        });
+
+        EliminarProductoBoton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\angel\\Documents\\NetBeansProjects\\proyectoLALA\\src\\Imagenes\\close15.png")); // NOI18N
+        EliminarProductoBoton1.setText("Eliminar producto");
+        EliminarProductoBoton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarProductoBoton1ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/enviar-correo-icono-6997-32.png"))); // NOI18N
+        jButton5.setText("Despachar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        ReinicioBoton.setIcon(new javax.swing.ImageIcon("C:\\Users\\angel\\Documents\\NetBeansProjects\\proyectoLALA\\src\\Imagenes\\tatice_just_bins_bin_blue-6.png")); // NOI18N
+        ReinicioBoton.setText("Limpiar    ");
+        ReinicioBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReinicioBotonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
         jLayeredPane2.setLayout(jLayeredPane2Layout);
         jLayeredPane2Layout.setHorizontalGroup(
@@ -282,17 +305,19 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                        .addGap(189, 189, 189)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton7)
+                            .addComponent(UsuarioLabelMarketing)))
+                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane2Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
-                                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel8)
-                                        .addGap(74, 74, 74))
+                                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
                                         .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(jLayeredPane2Layout.createSequentialGroup()
@@ -308,29 +333,39 @@ public class Login extends javax.swing.JFrame {
                                         .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(TerminarLlamadaBoton)
-                                            .addComponent(jLabel6)))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane2Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)
+                                            .addComponent(jLabel6)))
+                                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel8)
+                                        .addGap(63, 63, 63))))
+                            .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                                .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                                        .addGap(256, 256, 256)
+                                        .addComponent(cronometroLabel))
+                                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGap(268, 268, 268)
-                        .addComponent(cronometroLabel))
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton11)
-                        .addGap(157, 157, 157)
-                        .addComponent(jButton5))
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton7)
-                            .addComponent(UsuarioLabelMarketing))))
-                .addContainerGap(27, Short.MAX_VALUE))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 4, Short.MAX_VALUE)))
+                .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane2Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(EliminarProductoBoton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(EliminarProductoBoton2)
+                .addGap(102, 102, 102))
+            .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                .addGap(184, 184, 184)
+                .addComponent(jButton5)
+                .addGap(18, 18, 18)
+                .addComponent(ReinicioBoton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane2Layout.setVerticalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,7 +393,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(TerminarLlamadaBoton))
                 .addGap(18, 18, 18)
                 .addComponent(cronometroLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
@@ -369,16 +404,22 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
+                        .addGap(49, 49, 49)
+                        .addComponent(jButton11)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5))
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jButton11)))
-                .addGap(44, 44, 44))
+                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(EliminarProductoBoton2)
+                            .addComponent(EliminarProductoBoton1))
+                        .addGap(72, 72, 72))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane2Layout.createSequentialGroup()
+                        .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ReinicioBoton)
+                            .addComponent(jButton5))
+                        .addContainerGap())))
         );
         jLayeredPane2.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(UsuarioLabelMarketing, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -394,21 +435,28 @@ public class Login extends javax.swing.JFrame {
         jLayeredPane2.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(IniciarLLamadaBoton, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(cronometroLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(TerminarLlamadaBoton, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jButton7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane2.setLayer(jButton11, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(EliminarProductoBoton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(EliminarProductoBoton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(ReinicioBoton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane2)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane2))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane2)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLayeredPane2)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout TeleFrameLayout = new javax.swing.GroupLayout(TeleFrame.getContentPane());
@@ -419,7 +467,7 @@ public class Login extends javax.swing.JFrame {
         );
         TeleFrameLayout.setVerticalGroup(
             TeleFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         clienteFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -864,7 +912,7 @@ public class Login extends javax.swing.JFrame {
             if(u.getApp()==1){
                 UsuarioLabelMarketing.setText(u.getNombre()+"");
                 TeleFrame.setVisible(true);  
-                TeleFrame.setSize(668, 631);
+                TeleFrame.setSize(680, 732);
                 TerminarLlamadaBoton.setEnabled(false);
                 new Funcion().LLenarListaProductos(jTable1,jTable2);
             }
@@ -894,14 +942,17 @@ public class Login extends javax.swing.JFrame {
         
             int dialogButton = JOptionPane.YES_NO_OPTION;  
             int response;
-            response = JOptionPane.showConfirmDialog (null, "Desea Generar la orden de venta?","Generar orden de venta", dialogButton);
+            response = JOptionPane.showConfirmDialog (TeleFrame, "¿Desea Generar la orden de venta?","Generar orden de venta", dialogButton);
             
+            DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+            int rows1 = model.getRowCount(); 
             
-            if( response == YES_OPTION) {
+            model = (DefaultTableModel)jTable2.getModel();
+            int rows2 = model.getRowCount(); 
+            
+            if( response == YES_OPTION && rows1 > 0 && rows2 > 0  ) {
                 //aqui se hara el proceso de despacho
-                
-            
-                
+ 
                 int id_orden = new Funcion().CrearOrdenVenta( u.getID() , "J-00021244-9", "PASEO ORINOCO, 134 APARTADO 109");
                 new Funcion().Despachar(id_orden,jTable2);
                 new Funcion().InsertarDemanda(jTable1);
@@ -945,8 +996,22 @@ public class Login extends javax.swing.JFrame {
       IniciarLLamadaBoton.setEnabled(true);
       timer.stop();//////////////////////////////
       cronometroLabel.setText("00:00:00");//////////////////////
-      seg=min=hora=0;///////////////////////
+     
       
+      int dialogButton = JOptionPane.YES_NO_OPTION;  
+            int response;
+            response = JOptionPane.showConfirmDialog (TeleFrame, "¿La llamada fue exitosa?","Fin de llamada", dialogButton);
+            
+            
+            if( response == YES_OPTION) {
+               new Funcion().CrearRegistroLlamada(u.getNombre(), "J-00021244-9" , "PASEO ORINOCO, 134 APARTADO 109", "213", 1, TiempoLlamada);
+            }
+            else{
+               new Funcion().CrearRegistroLlamada(u.getNombre(), "J-00021244-9" , "PASEO ORINOCO, 134 APARTADO 109", "213", 0, TiempoLlamada);
+            }
+            
+     seg=min=hora=0;///////////////////////
+     
     }//GEN-LAST:event_TerminarLlamadaBotonActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -998,7 +1063,7 @@ public class Login extends javax.swing.JFrame {
                     if(u.getApp()==1){
                         UsuarioLabelMarketing.setText(u.getNombre()+"");
                         TeleFrame.setVisible(true);  
-                        TeleFrame.setSize(668, 631);
+                        TeleFrame.setSize(680, 732);
                         TerminarLlamadaBoton.setEnabled(false);}
 
          // aplicacion ==2 pertenece a despacho
@@ -1039,7 +1104,7 @@ private void FacturarBotonActionPerformed(java.awt.event.ActionEvent evt) {
         }
         else{ 
                 int response;
-                response = JOptionPane.showConfirmDialog(null, "Marcar orden como facturada?");
+                response = JOptionPane.showConfirmDialog(null, "¿Marcar orden como facturada?");
 
                 if( response == YES_OPTION){
 
@@ -1048,7 +1113,7 @@ private void FacturarBotonActionPerformed(java.awt.event.ActionEvent evt) {
                      ((DefaultTableModel)OrdenesTable.getModel()).removeRow(row);
                 }
         }
-    }
+}
     
 private void VerOrdenBotonActionPerformed(java.awt.event.ActionEvent evt) { 
         int row = OrdenesTable.getSelectedRow();
@@ -1101,6 +1166,63 @@ private void VerOrdenBotonActionPerformed(java.awt.event.ActionEvent evt) {
        System.exit(0);  
     }//GEN-LAST:event_xBotonActionPerformed
 
+    private void ReinicioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReinicioBotonActionPerformed
+    
+
+        if( !TerminarLlamadaBoton.isEnabled() ){
+            
+                int dialogButton = JOptionPane.YES_NO_OPTION;  
+                int response;
+                response = JOptionPane.showConfirmDialog (TeleFrame, "                                  ¿Desea Reiniciar la operacion?\n (esto limpiar las listas de productos seleccionados"
+                                                              + " y la eleccion del cliente)","Reiniciar la operacion", dialogButton);
+      
+                if( response == YES_OPTION ){
+                    
+                        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+                        int rows = model.getRowCount(); 
+                        for(int i = rows - 1; i >=0; i--)  model.removeRow(i); 
+
+                        model = (DefaultTableModel)jTable2.getModel();
+                        rows = model.getRowCount(); 
+                        for(int i = rows - 1; i >=0; i--)  model.removeRow(i);
+
+                        this.ClienteTextField.setText("");
+                        this.DClienteLabel.setText("");
+                        this.DDireccionLabel.setText("");
+                        this.DHoraLabel.setText("");
+                        this.DIDlabel.setText("");
+                        this.DRifLabel.setText("");
+                        
+                }
+        }
+        else{
+                showMessageDialog(TeleFrame, "No puede limpiar la pantalla si hay una llamada en progreso");
+        }
+      
+    }//GEN-LAST:event_ReinicioBotonActionPerformed
+
+    private void EliminarProductoBoton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarProductoBoton2ActionPerformed
+            
+            int row = jTable2.getSelectedRow();
+
+            if(row != -1 ){
+
+                ((DefaultTableModel)jTable2.getModel()).removeRow(row);
+
+            }       
+    }//GEN-LAST:event_EliminarProductoBoton2ActionPerformed
+
+    private void EliminarProductoBoton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarProductoBoton1ActionPerformed
+        
+                    int row = jTable1.getSelectedRow();
+
+            if(row != -1 ){
+
+                ((DefaultTableModel)jTable1.getModel()).removeRow(row);
+
+            }       
+    }//GEN-LAST:event_EliminarProductoBoton1ActionPerformed
+
    
     /**
      * @param args the command line arguments
@@ -1149,9 +1271,12 @@ private void VerOrdenBotonActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JFrame DetallesOrdenFrame;
     private javax.swing.JTable DetallesOrdenTable;
     private javax.swing.JButton DetallesOrdenVolverBoton;
+    private javax.swing.JButton EliminarProductoBoton1;
+    private javax.swing.JButton EliminarProductoBoton2;
     private javax.swing.JButton FacturarBoton;
     private javax.swing.JButton IniciarLLamadaBoton;
     private javax.swing.JTable OrdenesTable;
+    private javax.swing.JButton ReinicioBoton;
     private javax.swing.JFrame TeleFrame;
     private javax.swing.JButton TerminarLlamadaBoton;
     private javax.swing.JTextField UsuTextField;
